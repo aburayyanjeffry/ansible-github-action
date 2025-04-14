@@ -1,0 +1,6 @@
+---
+- name: Install Nginx and deploy Hello World page
+  hosts: webservers
+  become: true
+  roles:
+    - webserver
