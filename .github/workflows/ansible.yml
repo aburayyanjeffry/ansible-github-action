@@ -33,8 +33,8 @@ jobs:
 
     - name: Create dynamic inventory
       run: |
-        echo "[target]" > hosts.ini
-        echo "$TARGET_HOST ansible_user=youruser ansible_ssh_private_key_file=~/.ssh/id_rsa" >> hosts.ini
+        echo "[webservers]" > hosts.ini
+        echo "$TARGET_HOST ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> hosts.ini
 
     - name: Run Ansible Playbook
       run: |

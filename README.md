@@ -89,3 +89,16 @@ PUBLIC_IP=$(terraform output -raw public_ip)
 
 # SSH into the EC2 instance
 ssh -i ~/.ssh/id_rsa ubuntu@$(terraform output -raw public_ip)
+
+
+# Add the private key to GitHub Secrets
+In your GitHub repo:
+
+Go to Settings → Secrets and variables → Actions → New repository secret
+
+Add a new secret:
+
+Name: ANSIBLE_SSH_PRIVATE_KEY
+
+Value: paste the content of ansible_key (the private key)
+
