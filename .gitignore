@@ -7,3 +7,5 @@ tfplan
 
 # Ansible
 *.retry
+ansible_key
+ansible_key.pub

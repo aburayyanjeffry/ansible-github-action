@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_key_pair" "my_key" {
   key_name   = "my-key"
-  public_key = file("~/.ssh/id_rsa.pub") # Adjust path if needed
+  public_key = file("./ansible_key.pub") # Adjust path if needed
 }
 
 resource "aws_instance" "my_ec2" {

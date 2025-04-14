@@ -1,14 +1,9 @@
-name: Ansible Playbook CI
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
 jobs:
   run-ansible:
     runs-on: ubuntu-latest
+
+    env:
+      TARGET_HOST: ${{ secrets.TARGET_HOST }}
 
     steps:
       - name: Checkout code
@@ -18,6 +13,19 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y ansible
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$TARGET_HOST" >> ~/.ssh/known_hosts
+        shell: bash
+
+      - name: Create dynamic inventory
+        run: |
+          echo "[target]" > hosts.ini
+          echo "$TARGET_HOST ansible_user=youruser ansible_ssh_private_key_file=~/.ssh/id_rsa" >> hosts.ini
 
       - name: Run Ansible Playbook
         run: |
